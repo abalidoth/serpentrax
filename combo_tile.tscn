@@ -1,0 +1,81 @@
+[gd_scene load_steps=9 format=3 uid="uid://ex0oj58taifv"]
+
+[ext_resource type="Script" uid="uid://dwcvhlgu08bgt" path="res://combo_tile.gd" id="1_lb888"]
+[ext_resource type="Texture2D" uid="uid://76jokxtvsmek" path="res://assets/combo_tile.svg" id="1_qdo0k"]
+
+[sub_resource type="Curve2D" id="Curve2D_lb888"]
+_data = {
+"points": PackedVector2Array(-0.00578308, -9.37073, 0.00578308, 9.37073, -1, -158, -156.41, 93.5728, 156.41, -93.5728, 140, -79)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_qljeu"]
+_data = {
+"points": PackedVector2Array(17.9547, -10.9102, -17.9547, 10.9102, 137, -80, -4.51529, 175.678, 4.51529, -175.678, -2, -159)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_77mcw"]
+_data = {
+"points": PackedVector2Array(61.0658, 39.5132, -61.0658, -39.5132, 138, 81, 89.8027, -59.0132, -89.8027, 59.0132, -140, 82)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_jw1di"]
+_data = {
+"points": PackedVector2Array(-2.48684, 72.8684, 2.48684, -72.8684, 2, 159, 75.4342, 37.9737, -75.4342, -37.9737, -143, -77)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_cxf7i"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -138, 82, -147.531, -87.4257, 147.531, 87.4257, 138, 85)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_20e81"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -140, -77, -17.0753, -168.021, 17.0753, 168.021, 1, 161)
+}
+point_count = 2
+
+[node name="ComboTile" type="Node2D"]
+script = ExtResource("1_lb888")
+
+[node name="ComboTile" type="Sprite2D" parent="."]
+texture = ExtResource("1_qdo0k")
+
+[node name="Path01" type="Path2D" parent="."]
+unique_name_in_owner = true
+curve = SubResource("Curve2D_lb888")
+
+[node name="Path10" type="Path2D" parent="."]
+unique_name_in_owner = true
+curve = SubResource("Curve2D_qljeu")
+
+[node name="Path24" type="Path2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-0.503586, -3.56922)
+scale = Vector2(0.996403, 1.08011)
+curve = SubResource("Curve2D_77mcw")
+
+[node name="Path35" type="Path2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-1.97241, -0.326271)
+scale = Vector2(0.986207, 0.995763)
+curve = SubResource("Curve2D_jw1di")
+
+[node name="Path42" type="Path2D" parent="."]
+unique_name_in_owner = true
+curve = SubResource("Curve2D_cxf7i")
+
+[node name="Path53" type="Path2D" parent="."]
+unique_name_in_owner = true
+curve = SubResource("Curve2D_20e81")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(-85, -144, 84, -145, 166, -2, 91, 143, -81, 146, -169, 0)
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://ba0m17d63wwn0"]
+
+[ext_resource type="Script" uid="uid://pjfsalbh281l" path="res://main_game.gd" id="1_1oj5k"]
+[ext_resource type="PackedScene" uid="uid://cqug8ddu0hwwd" path="res://apple.tscn" id="2_yx7mw"]
+
+[sub_resource type="Curve" id="Curve_1oj5k"]
+_data = [Vector2(0.0106383, 0.0786518), 0.0, 0.0, 0, 0, Vector2(0.101064, 0.955056), 0.0, 0.0, 0, 0, Vector2(0.882979, 0.966292), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[node name="MainGame" type="Node2D"]
+script = ExtResource("1_1oj5k")
+
+[node name="Playfield" type="Node2D" parent="."]
+position = Vector2(427, 278)
+
+[node name="SnakeBody" type="Line2D" parent="."]
+unique_name_in_owner = true
+width_curve = SubResource("Curve_1oj5k")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="SnakeTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 1.5
+autostart = true
+
+[node name="Apple" parent="." instance=ExtResource("2_yx7mw")]
+unique_name_in_owner = true
+visible = false
+scale = Vector2(0.3, 0.3)
+
+[connection signal="timeout" from="SnakeTimer" to="." method="_on_snake_timer_timeout"]
