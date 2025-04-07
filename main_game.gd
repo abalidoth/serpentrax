@@ -7,8 +7,8 @@ var tile_scale = 0.3 #scale of tiles
 var tile_radius = 3 #how big the board is
 
 #project from cubic coordinates to cartesian
-var project_x = Vector3(1,-0.5,-0.5) * tile_spacing 
-var project_y = Vector3(0,sqrt(3)/2, -sqrt(3)/2) * tile_spacing
+var project_y = Vector3(1,-0.5,-0.5) * tile_spacing 
+var project_x = -Vector3(0,sqrt(3)/2, -sqrt(3)/2) * tile_spacing
 
 var sample_frequency = 0.05 #how smooth the snake moves
 

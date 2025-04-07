@@ -40,6 +40,7 @@ _data = {
 point_count = 2
 
 [node name="ComboTile" type="Node2D"]
+rotation = 1.5708
 script = ExtResource("1_lb888")
 
 [node name="ComboTile" type="Sprite2D" parent="."]
