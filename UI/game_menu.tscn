@@ -1,0 +1,123 @@
+[gd_scene load_steps=9 format=3 uid="uid://3gvwxx53he0x"]
+
+[ext_resource type="ButtonGroup" uid="uid://c4n5dmfon4p8j" path="res://UI/tile_button_group.tres" id="1_2qedo"]
+[ext_resource type="Script" uid="uid://cbesr2wbgq5uu" path="res://UI/game_menu.gd" id="1_f4psl"]
+[ext_resource type="Theme" uid="uid://spumyq3van4l" path="res://game_menu_theme.tres" id="1_h44us"]
+[ext_resource type="Texture2D" uid="uid://76jokxtvsmek" path="res://assets/combo_tile.svg" id="2_f4psl"]
+[ext_resource type="Texture2D" uid="uid://c00agjbrg4mr4" path="res://assets/h_tile.svg" id="3_y331g"]
+[ext_resource type="Texture2D" uid="uid://wytcqcxr3aqc" path="res://coral_snake.tres" id="5_y331g"]
+[ext_resource type="Gradient" uid="uid://8n87ag830xln" path="res://boomslang.tres" id="6_aroug"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_h44us"]
+gradient = ExtResource("6_aroug")
+width = 10
+
+[node name="GameMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_h44us")
+script = ExtResource("1_f4psl")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -213.5
+offset_top = -133.5
+offset_right = 213.5
+offset_bottom = 133.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LeftPane" type="VBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer/LeftPane"]
+layout_mode = 2
+text = "Tile Type"
+
+[node name="XC Tile" type="CheckBox" parent="CenterContainer/VBoxContainer/HBoxContainer/LeftPane"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+button_pressed = true
+button_group = ExtResource("1_2qedo")
+text = "XC Tile"
+icon = ExtResource("2_f4psl")
+icon_alignment = 2
+expand_icon = true
+
+[node name="H tile" type="CheckBox" parent="CenterContainer/VBoxContainer/HBoxContainer/LeftPane"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+button_group = ExtResource("1_2qedo")
+text = "H tile"
+icon = ExtResource("3_y331g")
+icon_alignment = 2
+expand_icon = true
+
+[node name="VSeparator" type="VSeparator" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="RightPane" type="VBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer/RightPane"]
+layout_mode = 2
+text = "Game Size"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer/RightPane"]
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="CenterContainer/VBoxContainer/HBoxContainer/RightPane/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 3.0
+max_value = 7.0
+value = 3.0
+tick_count = 5
+ticks_on_borders = true
+
+[node name="SizeLabel" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer/RightPane/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "3"
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/VBoxContainer/HBoxContainer/RightPane"]
+layout_mode = 2
+
+[node name="Snake Color" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer/RightPane"]
+layout_mode = 2
+text = "Snake Color"
+
+[node name="OptionButton" type="OptionButton" parent="CenterContainer/VBoxContainer/HBoxContainer/RightPane"]
+layout_mode = 2
+selected = 1
+item_count = 2
+popup/item_0/text = "Coral Snake"
+popup/item_0/icon = ExtResource("5_y331g")
+popup/item_0/id = 0
+popup/item_1/text = "Boomslang"
+popup/item_1/icon = SubResource("GradientTexture1D_h44us")
+popup/item_1/id = 1
+
+[node name="Button" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Play Game"
+
+[connection signal="value_changed" from="CenterContainer/VBoxContainer/HBoxContainer/RightPane/HBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]

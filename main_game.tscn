@@ -1,19 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://ba0m17d63wwn0"]
+[gd_scene load_steps=5 format=3 uid="uid://ba0m17d63wwn0"]
 
 [ext_resource type="Script" uid="uid://pjfsalbh281l" path="res://main_game.gd" id="1_1oj5k"]
+[ext_resource type="Texture2D" uid="uid://wytcqcxr3aqc" path="res://coral_snake.tres" id="2_ykeeq"]
 [ext_resource type="PackedScene" uid="uid://cqug8ddu0hwwd" path="res://apple.tscn" id="2_yx7mw"]
 
 [sub_resource type="Curve" id="Curve_1oj5k"]
 _data = [Vector2(0.0106383, 0.0786518), 0.0, 0.0, 0, 0, Vector2(0.117021, 1), 0.0, 0.0, 0, 0, Vector2(0.962766, 1), 0.0, 0.0, 0, 0]
 point_count = 3
-
-[sub_resource type="Gradient" id="Gradient_yx7mw"]
-offsets = PackedFloat32Array(0, 0.126761, 0.239437, 0.401408, 0.605634, 0.774648, 0.887324, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.205882, 0.205882, 0, 1, 1, 1, 0, 1, 1, 0, 0.0166664, 1, 0.976136, 0.159091, 0.0140149, 1, 0.85, 1, 0, 1, 0.185938, 0.21875, 0, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ykeeq"]
-gradient = SubResource("Gradient_yx7mw")
-width = 10
 
 [node name="MainGame" type="Node2D"]
 script = ExtResource("1_1oj5k")
@@ -25,7 +18,7 @@ position = Vector2(423, 341)
 unique_name_in_owner = true
 texture_repeat = 2
 width_curve = SubResource("Curve_1oj5k")
-texture = SubResource("GradientTexture1D_ykeeq")
+texture = ExtResource("2_ykeeq")
 texture_mode = 1
 joint_mode = 2
 begin_cap_mode = 2
