@@ -1,16 +1,16 @@
 extends AbstractTile
-class_name ComboTile
 
+class_name HTile
 
 func _ready():
 	number_to_path =  [
-		%Path01,
-		%Path10,
+		%Path03,
+		%Path15,
 		%Path24,
-		%Path35,
+		%Path30,
 		%Path42,
-		%Path53
+		%Path51
 	]
 	input_to_output = [
-		1,0,4,5,2,3
+		3, 5, 4, 0, 2, 1
 	]

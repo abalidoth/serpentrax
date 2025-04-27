@@ -2,9 +2,18 @@ extends Node2D
 
 var rng = RandomNumberGenerator.new()
 
-var tile_spacing = 55 #space between tiles, used to determine vectors
+var tile_spacing = 57 #space between tiles, used to determine vectors
 var tile_scale = 0.3 #scale of tiles
 var tile_radius = 3 #how big the board is
+
+var number_to_coord : Array = [
+	Vector3i(0,-1,1),
+	Vector3i(1,-1,0),
+	Vector3i(1,0,-1),
+	Vector3i(0,1,-1),
+	Vector3i(-1,1,0),
+	Vector3i(-1,0,1)
+]
 
 #project from cubic coordinates to cartesian
 var project_y = Vector3(1,-0.5,-0.5) * tile_spacing 
@@ -19,6 +28,8 @@ var growing = false
 var tiles: Dictionary = {}
 var ComboTileScene = preload("res://combo_tile.tscn")
 
+var HTileScene = preload("res://h_tile.tscn")
+
 var apple_tile : Vector3i
 
 func make_playfield():
@@ -27,7 +38,9 @@ func make_playfield():
 			var k = -i-j
 			if abs(k)<=tile_radius:
 				var tile_pos = Vector3i(i,j,k)
-				var new_tile:ComboTile = ComboTileScene.instantiate()
+				#var new_tile:ComboTile = ComboTileScene.instantiate()
+				
+				var new_tile:AbstractTile = ComboTileScene.instantiate()
 				$Playfield.add_child(new_tile)
 				var new_pos = Vector2(
 					project_x.dot(tile_pos),
@@ -43,7 +56,7 @@ func make_playfield():
 func follow_path(prev_tile: Vector3i, this_tile: Vector3i) -> Vector3i:
 	#Assuming you leave tile a and enter tile b, what tile do you end up?
 	var entry_direction: Vector3i = prev_tile - this_tile
-	var this_obj:ComboTile = tiles[this_tile]
+	var this_obj:AbstractTile = tiles[this_tile]
 	var entry_point: int = this_obj.number_to_coord.find(entry_direction)
 	var exit_point :int = this_obj.input_to_output[entry_point]
 	var exit_direction: Vector3i = this_obj.number_to_coord[exit_point]
@@ -52,7 +65,7 @@ func follow_path(prev_tile: Vector3i, this_tile: Vector3i) -> Vector3i:
 func get_path_obj(prev_tile: Vector3i, this_tile: Vector3i):
 	#assuming you leave tile a and enter tile b, return the path object.
 	var entry_direction: Vector3i = prev_tile - this_tile
-	var this_obj:ComboTile = tiles[this_tile]
+	var this_obj:AbstractTile = tiles[this_tile]
 	var entry_point: int = this_obj.number_to_coord.find(entry_direction)
 	return this_obj.number_to_path[entry_point]
 
@@ -60,7 +73,8 @@ func get_path_obj(prev_tile: Vector3i, this_tile: Vector3i):
 func init_snake():
 	#The snake is always n+2 tiles long -- it's touching n+1
 	#and the hex BEFORE the tail is also saved.
-	snake_tiles = [Vector3i.ZERO, Vector3i(1,-1,0)]
+	var second_tile = number_to_coord[rng.randi()%6]
+	snake_tiles = [Vector3i.ZERO, second_tile]
 	snake_tiles.append(follow_path(snake_tiles[0], snake_tiles[1]))
 	tiles[snake_tiles[1]].lock()
 	tiles[snake_tiles[2]].lock()
@@ -77,7 +91,7 @@ func advance_snake():
 	growing = (new_head == apple_tile)
 	if growing:
 		place_apple()
-	if snake_tiles.count(snake_tiles[0])==1:
+	if snake_tiles.count(snake_tiles[0])==1: #avoid unlocking multiply visited tiles
 		tiles[snake_tiles[0]].unlock()
 	tiles[snake_tiles[-1]].lock()
 	draw_snake()

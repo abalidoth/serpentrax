@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cqug8ddu0hwwd"]
+[gd_scene load_steps=9 format=3 uid="uid://cqug8ddu0hwwd"]
 
 [ext_resource type="Script" uid="uid://bmruh71rypeue" path="res://apple.gd" id="1_n78qv"]
 [ext_resource type="Texture2D" uid="uid://c01swrr1vaftr" path="res://assets/zeimusu_Apple.svg" id="2_whgpf"]
@@ -16,17 +16,31 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 gradient = SubResource("Gradient_n78qv")
 fill = 1
 fill_from = Vector2(0.481651, 0.486239)
-fill_to = Vector2(0.40367, 0.417431)
+fill_to = Vector2(0.449541, 0.444954)
+
+[sub_resource type="Curve" id="Curve_n78qv"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.764706, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_whgpf"]
+curve = SubResource("Curve_n78qv")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_aq6lu"]
 particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 49.2
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
 radial_velocity_min = -2.23517e-05
-radial_velocity_max = 103.45
+radial_velocity_max = 34.49
 gravity = Vector3(0, 98, 0)
 tangential_accel_min = -2.23517e-06
-tangential_accel_max = 60.92
-damping_min = 64.368
-damping_max = 64.368
+tangential_accel_max = -2.23517e-06
+damping_min = 100.0
+damping_max = 100.0
+scale_curve = SubResource("CurveTexture_whgpf")
 hue_variation_min = -1.0
 hue_variation_max = 1.0
 
@@ -34,6 +48,7 @@ hue_variation_max = 1.0
 script = ExtResource("1_n78qv")
 
 [node name="Path2D" type="Path2D" parent="."]
+position = Vector2(-11, -13)
 curve = SubResource("Curve2D_xniv1")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
@@ -42,21 +57,20 @@ position = Vector2(59, -72)
 rotation = -2.88226
 rotates = false
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Path2D/PathFollow2D"]
-position = Vector2(-4.18659, -8.91473)
-amount = 20
-texture = SubResource("GradientTexture2D_whgpf")
-lifetime = 1.5
-randomness = 1.0
-process_material = SubResource("ParticleProcessMaterial_aq6lu")
-
 [node name="ZeimusuApple" type="Sprite2D" parent="Path2D/PathFollow2D"]
-position = Vector2(-1.52588e-05, 0)
+position = Vector2(-2.32763, 6.82511)
 rotation = 2.88154
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_whgpf")
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Path2D/PathFollow2D"]
+position = Vector2(-6.82511, -2.32763)
+texture = SubResource("GradientTexture2D_whgpf")
+lifetime = 0.51
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_aq6lu")
+
 [node name="Timer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 2.0
+wait_time = 3.462
 autostart = true
